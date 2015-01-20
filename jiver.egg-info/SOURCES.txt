@@ -1,0 +1,17 @@
+MANIFEST.in
+README.rst
+setup.py
+extra/jiver-completion.sh
+jiver/__init__.py
+jiver/build_and_run.py
+jiver/database.py
+jiver/main.py
+jiver/maven_utils.py
+jiver/tabs.py
+jiver/vpn.py
+jiver.egg-info/PKG-INFO
+jiver.egg-info/SOURCES.txt
+jiver.egg-info/dependency_links.txt
+jiver.egg-info/entry_points.txt
+jiver.egg-info/requires.txt
+jiver.egg-info/top_level.txt

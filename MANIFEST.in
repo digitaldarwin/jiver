@@ -1,0 +1,6 @@
+include *.sh
+include README.rst
+include extra
+include extra/jiver-completion.sh
+recursive-include extra
+recursive-include *.sh
