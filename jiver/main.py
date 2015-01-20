@@ -59,7 +59,13 @@ def start():
                 sys.exit(0)
 
     elif arguments.get('upgrade-analyzer', None):
-        print colored("NEED TO IMPLEMENT", 'red')
+        try:
+            cmd = "java -jar /usr/local/jiver/upgrade-analyzer.jar port=9000"
+            print colored("Running '" + cmd + "'", 'yellow')
+            return_code = subprocess.call(cmd.split())
+        except KeyboardInterrupt:
+            print colored("Processed killed", 'red')
+            sys.exit(0)
 
     elif arguments.get('database', None):
         if arguments['connect']:
