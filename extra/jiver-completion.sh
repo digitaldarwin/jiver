@@ -45,6 +45,9 @@ function _mycomplete_()
         *database*)
             values='connect backup restore-latest'
             ;;
+        *diffmerge*)
+            values=''
+            ;;
         *run-tabs*)
             values=''
             ;;
@@ -61,7 +64,7 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run create database run-tabs upgrade-analyzer vpn'
+            values='build-and-run create database diffmerge run-tabs upgrade-analyzer vpn'
     esac
 
     

@@ -4,6 +4,7 @@ Usage:
      jiver build-and-run [--skip-tests] <maven-module>...
      jiver create (project | plugin)
      jiver database (connect | backup | restore-latest)
+     jiver diffmerge <directory-1> <directory-2> <file>
      jiver run-tabs
      jiver upgrade-analyzer
      jiver vpn (all | split | my-current-gateway)
@@ -25,6 +26,7 @@ import tabs
 import build_and_run
 import database
 import vpn
+import diffmerge
 
 
 
@@ -74,6 +76,13 @@ def start():
             database.backup()
         elif arguments['restore-latest']:
             database.restore_latest()
+
+    elif arguments.get('diffmerge', None):
+        d1 = arguments['<directory-1>']
+        d2 = arguments['<directory-2>']
+        filename = arguments['<file>']
+        diffmerge.run([d1, d2], filename)
+
 
     elif arguments.get('vpn', None):
         if arguments['all']:
