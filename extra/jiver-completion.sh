@@ -40,7 +40,7 @@ function _mycomplete_()
             values=''
             ;;
         *create*)
-            values='project plugin app'
+            values='project plugin'
             ;;
         *database*)
             values='connect backup restore-latest'
@@ -61,7 +61,7 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run core-checkout create database run-tabs setup-false soy-escape upgrade-analyzer vpn'
+            values='build-and-run create database run-tabs upgrade-analyzer vpn'
     esac
 
     

@@ -2,13 +2,9 @@
 """
 Usage: 
      jiver build-and-run [--skip-tests] <maven-module>...
-     jiver core-checkout <version>
-     jiver create (project | plugin | app)
+     jiver create (project | plugin)
      jiver database (connect | backup | restore-latest)
-     jiver remote-deploy
      jiver run-tabs
-     jiver setup-false
-     jiver soy-escape
      jiver upgrade-analyzer
      jiver vpn (all | split | my-current-gateway)
 
@@ -61,8 +57,6 @@ def start():
             except KeyboardInterrupt:
                 print colored("Maven processed killed", 'red')
                 sys.exit(0)
-        elif arguments['app']:
-            print colored("NEED TO IMPLEMENT", 'red')
 
     elif arguments.get('upgrade-analyzer', None):
         print colored("NEED TO IMPLEMENT", 'red')
@@ -86,13 +80,5 @@ def start():
     elif arguments.get('run-tabs', None):
         tabs.run()
 
-    elif arguments.get('remote-deploy', None):
-        print colored("NEED TO IMPLEMENT", 'red')
-
-    elif arguments.get('setup-false', None):
-        print colored("NEED TO IMPLEMENT", 'red')
-
-    elif arguments.get('soy-escape', None):
-        print colored("NEED TO IMPLEMENT", 'red')
 
 
