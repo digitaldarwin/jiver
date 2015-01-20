@@ -2,6 +2,7 @@ MANIFEST.in
 README.rst
 setup.py
 extra/jiver-completion.sh
+extra/upgrade-analyzer.jar
 jiver/__init__.py
 jiver/build_and_run.py
 jiver/database.py
