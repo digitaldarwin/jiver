@@ -35,7 +35,7 @@ def find_jdbc_string():
     else:
         #print "highest_dir_with_pom: " + highest_dir_with_pom
 
-        startup_file = highest_dir_with_pom + "/src/test/resources/jiveHome/jive_startup.xml"
+        startup_file = highest_dir_with_pom + "/target/jiveHome/jive_startup.xml"
         if not os.path.isfile(startup_file):
             print colored("Could not find jive_startup.xml.", 'red')
             print colored("Expected " + startup_file, 'red')
