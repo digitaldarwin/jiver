@@ -7,10 +7,12 @@ import time
 import datetime
 import os
 import re
+import signal
 
 BACKUP_DIR = os.path.expanduser("~/code/DB-BACKUPS")
 
 def connect():
+    os.setpgrp()
     try:
         database_name = maven_utils.find_database_name()
         if database_name:
@@ -20,6 +22,7 @@ def connect():
     except KeyboardInterrupt:
         print 
         print colored("psql processed killed", 'red')
+        os.killpg(0, signal.SIGKILL)
         sys.exit(0)
 
 
