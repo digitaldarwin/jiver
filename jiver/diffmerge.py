@@ -31,11 +31,13 @@ def run(dirs, filename):
             paths.append(matches[0])
         else:
             print colored("More than one file found for " + filename + " in " + d, 'red')
-            print colored(matches, 'red')
+            print colored("Matches Found:", 'red')
+            pre = "\n    "
+            print colored(pre + pre.join(matches), 'yellow')
             sys.exit(1)
 
     try:
-        cmd = "diffmerge.sh " + paths[0] + " " + paths[1]
+        cmd = "diffmerge.sh " + " ".join(paths)
         print colored(cmd, 'yellow')
         subprocess.call(cmd.split())
     except KeyboardInterrupt:

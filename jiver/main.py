@@ -5,6 +5,7 @@ Usage:
      jiver create (project | plugin)
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
+     jiver diffmerge <directory-1> <directory-2> <directory-3> <file>
      jiver run-tabs
      jiver upgrade-analyzer
      jiver vpn (all | split | my-current-gateway)
@@ -80,9 +81,9 @@ def start():
     elif arguments.get('diffmerge', None):
         d1 = arguments['<directory-1>']
         d2 = arguments['<directory-2>']
+        d3 = arguments['<directory-3>']
         filename = arguments['<file>']
-        diffmerge.run([d1, d2], filename)
-
+        diffmerge.run(filter(None, [d1, d2, d3]), filename)
 
     elif arguments.get('vpn', None):
         if arguments['all']:

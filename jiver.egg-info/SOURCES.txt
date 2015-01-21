@@ -6,6 +6,7 @@ extra/upgrade-analyzer.jar
 jiver/__init__.py
 jiver/build_and_run.py
 jiver/database.py
+jiver/diffmerge.py
 jiver/main.py
 jiver/maven_utils.py
 jiver/tabs.py
