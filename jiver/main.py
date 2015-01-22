@@ -6,6 +6,7 @@ Usage:
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
      jiver diffmerge <directory-1> <directory-2> <directory-3> <file>
+     jiver overlay <file>
      jiver run-tabs
      jiver upgrade-analyzer
      jiver vpn (all | split | my-current-gateway)
@@ -22,12 +23,15 @@ from jiver import __version__
 from termcolor import colored
 import subprocess
 import sys
+import os
+import signal
 
 import tabs
 import build_and_run
 import database
 import vpn
 import diffmerge
+import overlay
 
 
 
@@ -62,12 +66,14 @@ def start():
                 sys.exit(0)
 
     elif arguments.get('upgrade-analyzer', None):
+        os.setpgrp()
         try:
             cmd = "java -jar /usr/local/jiver/upgrade-analyzer.jar port=9000"
             print colored("Running '" + cmd + "'", 'yellow')
             return_code = subprocess.call(cmd.split())
         except KeyboardInterrupt:
             print colored("Processed killed", 'red')
+            os.killpg(0, signal.SIGKILL)
             sys.exit(0)
 
     elif arguments.get('database', None):
@@ -92,6 +98,10 @@ def start():
             vpn.split()
         elif arguments['my-current-gateway']:
             vpn.my_current_gateway()
+
+    elif arguments.get('overlay', None):
+        filename = arguments['<file>']
+        overlay.overlay_file(filename)
 
     elif arguments.get('run-tabs', None):
         tabs.run()

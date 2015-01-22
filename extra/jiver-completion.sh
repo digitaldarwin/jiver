@@ -51,6 +51,9 @@ function _mycomplete_()
         *run-tabs*)
             values=''
             ;;
+        *overlay*)
+            values=''
+            ;;
         *setup-false*)
             values=''
             ;;
@@ -64,7 +67,7 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run create database diffmerge run-tabs upgrade-analyzer vpn'
+            values='build-and-run create database diffmerge overlay run-tabs upgrade-analyzer vpn'
     esac
 
     
