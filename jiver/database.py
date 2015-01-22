@@ -10,13 +10,16 @@ import re
 import signal
 
 BACKUP_DIR = os.path.expanduser("~/code/DB-BACKUPS")
+JIVER_PG_USER = 'postgres'
+if os.environ.get('JIVER_PG_USER'):
+    JIVER_PG_USER = os.environ.get('JIVER_PG_USER')
 
 def connect():
     os.setpgrp()
     try:
         database_name = maven_utils.find_database_name()
         if database_name:
-            cmd = "psql " + database_name
+            cmd = "psql -U" + JIVER_PG_USER + " " + database_name
             print colored("Running '" + cmd + "'", 'yellow')
             return_code = subprocess.call(cmd.split())
     except KeyboardInterrupt:
@@ -37,7 +40,7 @@ def create_backup_dir_if_needed():
 
 def backup_for(timestamp, database_name):
     filename = database_name + "---" + timestamp + ".sql"
-    cmd = "pg_dump -Upostgres " + database_name + " -f " + BACKUP_DIR + "/" + filename
+    cmd = "pg_dump -U" + JIVER_PG_USER + " " + database_name + " -f " + BACKUP_DIR + "/" + filename
     print colored(cmd, 'yellow')
     subprocess.call(cmd.split())
 
@@ -81,15 +84,15 @@ def restore_latest_helper(database_name, database_name_matcher_function):
         latest = sorted(matches)[-1]
         #print latest
 
-        cmd = "dropdb -Upostgres " + database_name
+        cmd = "dropdb -U" + JIVER_PG_USER + " " + database_name
         print colored(cmd, 'yellow')
         subprocess.call(cmd.split())
 
-        cmd = "createdb -Upostgres " + database_name
+        cmd = "createdb -U" + JIVER_PG_USER + " " + database_name
         print colored(cmd, 'yellow')
         subprocess.call(cmd.split())
 
-        cmd = "psql -Upostgres " + database_name + " -f " + BACKUP_DIR + '/' + latest
+        cmd = "psql -U" + JIVER_PG_USER + " " + database_name + " -f " + BACKUP_DIR + '/' + latest
         print colored(cmd, 'yellow')
         subprocess.call(cmd.split())
 
