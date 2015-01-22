@@ -29,12 +29,14 @@ def run(dirs, filename):
         matches = __find_file_in_dir(d, filename)
         if len(matches) == 1:
             paths.append(matches[0])
-        else:
+        elif len(matches) > 1:
             print colored("More than one file found for " + filename + " in " + d, 'red')
             print colored("Matches Found:", 'red')
             pre = "\n    "
             print colored(pre + pre.join(matches), 'yellow')
             sys.exit(1)
+        else:
+            print colored("No file found for " + filename + " in " + d, 'red')
 
     try:
         cmd = "diffmerge.sh " + " ".join(paths)
