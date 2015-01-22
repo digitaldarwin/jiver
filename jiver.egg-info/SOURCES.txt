@@ -9,6 +9,7 @@ jiver/database.py
 jiver/diffmerge.py
 jiver/main.py
 jiver/maven_utils.py
+jiver/overlay.py
 jiver/tabs.py
 jiver/vpn.py
 jiver.egg-info/PKG-INFO
