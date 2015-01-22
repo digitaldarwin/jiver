@@ -22,8 +22,11 @@ function _mycomplete_()
                         local modules=`cat $i | grep '<module>' | sed 's/<module>//' | sed 's/<.*//' | sed 's/ //g' | sed 's/ //g'`
                         elements=(${elements[@]} $modules)
 
-                        local plugin_dirs=`cat $i | sed 's/<project.*>/<project>/' | xmllint --xpath "//plugin.dirs/text()" - | sed 's/^[  ]*//' | sed '/^$/d' | sed 's/,$//' | sed 's/.*\///'`
-                        elements=(${elements[@]} $plugin_dirs)
+                        if [ `cat $i | grep plugin.dirs | wc -l` -ne "0" ]
+                        then
+                            local plugin_dirs=`cat $i | sed 's/<project.*>/<project>/' | xmllint --xpath "//plugin.dirs/text()" - | sed 's/^[  ]*//' | sed '/^$/d' | sed 's/,$//' | sed 's/.*\///'`
+                            elements=(${elements[@]} $plugin_dirs)
+                        fi
                     done
                     x=`dirname "$x"`;
                 done
