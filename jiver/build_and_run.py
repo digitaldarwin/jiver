@@ -41,6 +41,11 @@ def __startup_tomcat_with_cargo_start_script(web_dir):
 
 def __handle_not_found_modules_by_looking_in_web_pom(web_dir, modules_not_found, should_skip_tests):
     web_pom = minidom.parse(web_dir + "/pom.xml")
+    if len(web_pom.getElementsByTagName("plugin.dirs")) == 0:
+        print colored('plugin.dirs was not available in web/pom.xml', 'red')
+        print colored('Unable to run build for modules: ' + " ".join(modules_not_found), 'red')
+        sys.exit(1)
+
     plugin_dirs_node = web_pom.getElementsByTagName("plugin.dirs")[0]
 
     plugin_dirs = ""
