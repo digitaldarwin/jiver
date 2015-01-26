@@ -40,7 +40,8 @@ function _mycomplete_()
             values=''
             ;;
         *core-checkout*)
-            values=''
+            local version_numbers=`cat /usr/local/jiver/git-checkout.txt | awk '{print $1}' | sort `
+            values=$version_numbers
             ;;
         *create*)
             values='project plugin'
@@ -73,7 +74,7 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run create database diffmerge move-theme-to-top-level  overlay run-tabs upgrade-analyzer vpn'
+            values='build-and-run core-checkout create database diffmerge move-theme-to-top-level  overlay run-tabs upgrade-analyzer vpn'
     esac
 
     

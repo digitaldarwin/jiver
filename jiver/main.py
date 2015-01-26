@@ -2,6 +2,7 @@
 """
 Usage: 
      jiver build-and-run [--skip-tests] <maven-module>...
+     jiver core-checkout <version>
      jiver create (project | plugin)
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
@@ -34,6 +35,7 @@ import vpn
 import diffmerge
 import overlay
 import move_theme_to_top_level
+import core_checkout
 
 
 
@@ -42,7 +44,8 @@ def start():
     arguments = docopt(__doc__, version=version)
     
     if arguments.get('core-checkout', None):
-        print colored("NEED TO IMPLEMENT", 'red')
+        version = arguments['<version>']
+        core_checkout.run(version)
 
     elif arguments.get('build-and-run', None):
         maven_modules = arguments['<maven-module>']
