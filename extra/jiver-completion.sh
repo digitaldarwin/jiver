@@ -51,6 +51,9 @@ function _mycomplete_()
         *diffmerge*)
             values=''
             ;;
+        *move-theme-to-top-level*)
+            values=''
+            ;;
         *run-tabs*)
             values=''
             ;;
@@ -70,7 +73,7 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run create database diffmerge overlay run-tabs upgrade-analyzer vpn'
+            values='build-and-run create database diffmerge move-theme-to-top-level  overlay run-tabs upgrade-analyzer vpn'
     esac
 
     

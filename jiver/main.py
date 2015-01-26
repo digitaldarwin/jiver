@@ -6,6 +6,7 @@ Usage:
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
      jiver diffmerge <directory-1> <directory-2> <directory-3> <file>
+     jiver move-theme-to-top-level
      jiver overlay <file>
      jiver run-tabs
      jiver upgrade-analyzer
@@ -32,6 +33,7 @@ import database
 import vpn
 import diffmerge
 import overlay
+import move_theme_to_top_level
 
 
 
@@ -83,6 +85,9 @@ def start():
             database.backup()
         elif arguments['restore-latest']:
             database.restore_latest()
+
+    elif arguments.get('move-theme-to-top-level', None):
+        move_theme_to_top_level.run()
 
     elif arguments.get('diffmerge', None):
         d1 = arguments['<directory-1>']
