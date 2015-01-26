@@ -1,6 +1,7 @@
 MANIFEST.in
 README.rst
 setup.py
+extra/git-checkout.txt
 extra/jiver-completion.sh
 extra/upgrade-analyzer.jar
 jiver/__init__.py
@@ -9,6 +10,7 @@ jiver/database.py
 jiver/diffmerge.py
 jiver/main.py
 jiver/maven_utils.py
+jiver/move_theme_to_top_level.py
 jiver/overlay.py
 jiver/tabs.py
 jiver/vpn.py
