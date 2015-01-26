@@ -66,6 +66,8 @@ def run(version):
 
     __parse_url_and_do_clone(url, version)
 
+def url(url):
+    __parse_url_and_do_clone(url, version)
 
 
 

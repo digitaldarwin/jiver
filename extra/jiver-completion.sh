@@ -39,7 +39,10 @@ function _mycomplete_()
         *build-and-run-all*)
             values=''
             ;;
-        *core-checkout*)
+        *core-checkout-url*)
+            values=''
+            ;;
+        *core-checkout\ *)
             local version_numbers=`cat /usr/local/jiver/git-checkout.txt | awk '{print $1}' | sort `
             values=$version_numbers
             ;;
@@ -74,10 +77,10 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run core-checkout create database diffmerge move-theme-to-top-level  overlay run-tabs upgrade-analyzer vpn'
+            values='build-and-run core-checkout core-checkout-url create database diffmerge move-theme-to-top-level  overlay run-tabs upgrade-analyzer vpn'
     esac
 
-    
+
 
     COMPREPLY=($(compgen -W "$values" -- "${word}"))
 

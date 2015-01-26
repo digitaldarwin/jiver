@@ -3,6 +3,7 @@
 Usage: 
      jiver build-and-run [--skip-tests] <maven-module>...
      jiver core-checkout <version>
+     jiver core-checkout-url <url>
      jiver create (project | plugin)
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
@@ -42,10 +43,14 @@ import core_checkout
 def start():
     version = ".".join(str(x) for x in __version__)
     arguments = docopt(__doc__, version=version)
-    
+
     if arguments.get('core-checkout', None):
         version = arguments['<version>']
         core_checkout.run(version)
+
+    elif arguments.get('core-checkout-url', None):
+        url = arguments['<url>']
+        core_checkout.url(url)
 
     elif arguments.get('build-and-run', None):
         maven_modules = arguments['<maven-module>']
