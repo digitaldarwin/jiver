@@ -19,6 +19,9 @@ def __obtain_default_gateway_and_save_to_file():
     
     print colored("Current default gateway: " + default_gateway, 'yellow')
     print colored("Saving to " + vpn_ip_file, 'yellow')
+    if not os.path.isdir(JIVER_HOME):
+        os.makedirs(JIVER_HOME)
+
     f = open(vpn_ip_file, 'w')
     f.write(default_gateway)
 
