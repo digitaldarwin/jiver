@@ -39,6 +39,7 @@ setup(
         # use homebrew's completion directory
         ('/usr/local/etc/bash_completion.d', ['extra/jiver-completion.sh']),
         ('/usr/local/jiver', ['extra/upgrade-analyzer.jar']),
+        ('/usr/local/jiver', ['extra/git-checkout.txt']),
     ],
     classifiers=(
         'Development Status :: 4 - Beta',
