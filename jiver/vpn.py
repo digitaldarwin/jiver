@@ -16,7 +16,7 @@ def __obtain_default_gateway_and_save_to_file():
     p = subprocess.Popen(cmd, shell=True, stdout=PIPE)
     output = p.communicate()
     default_gateway = output[0].rstrip()
-    
+
     print colored("Current default gateway: " + default_gateway, 'yellow')
     print colored("Saving to " + vpn_ip_file, 'yellow')
     if not os.path.isdir(JIVER_HOME):
@@ -26,9 +26,21 @@ def __obtain_default_gateway_and_save_to_file():
     f.write(default_gateway)
 
 def __force_all_traffic_through_the_vpn_connection():
-    cmd = "sudo route change default -link -interface jnc0"
-    print colored(cmd, 'yellow')
+
     try:
+        cmd = "netstat -r | grep  '10\.61' | awk '{print $6}' | sort | uniq"
+        p = subprocess.Popen(cmd, shell=True, stdout=PIPE)
+        output = p.communicate()
+        if len(output) != 2:
+            print colored("Found multiple interfaces.", 'red')
+            print output
+            sys.exit(1)
+
+        interface = output[0].strip()
+        print colored("Interface: " + interface, 'yellow')
+
+        cmd = "sudo route change default -link -interface " + interface
+        print colored(cmd, 'yellow')
         subprocess.call(cmd.split())
     except KeyboardInterrupt:
         sys.exit(1)
@@ -40,7 +52,7 @@ def __get_saved_default_gateway_or_most_likely_value():
         saved_default_gateway = f.read()
     except IOError:
         None # Do nothing
-    
+
     if not re.search(r'^\d+\.\d+\.\d+\.\d+$', saved_default_gateway):
         print colored("Malformed or missing data in " + vpn_ip_file, 'red')
         print colored("Using 192.168.1.1 for the default gateway.", 'red')

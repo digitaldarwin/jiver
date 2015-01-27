@@ -24,6 +24,11 @@ def find_root_maven_dir_from_current_dir():
         files_in_current_dir = os.listdir(current_dir_path)
         if 'pom.xml' in files_in_current_dir:
             highest_dir_with_pom = current_dir_path
+
+    if highest_dir_with_pom is None:
+        print colored("Doesn't look like you're in a Jive project", 'red')
+        sys.exit(1)
+    
     return highest_dir_with_pom
 
 

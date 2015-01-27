@@ -125,10 +125,6 @@ def run():
     
     mvn_dir = maven_utils.find_root_maven_dir_from_current_dir()
 
-    if not mvn_dir:
-        print colored("Doesn't look like you are in a Jive project", 'red')
-        sys.exit(1)
-
     old_theme_dir = mvn_dir + "/web/src/main/themes"
     new_theme_dir = mvn_dir + "/themes"
     
