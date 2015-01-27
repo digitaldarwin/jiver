@@ -7,6 +7,8 @@ import sys
 from termcolor import colored
 import string
 import xml.etree.ElementTree as ET
+import subprocess
+import time
 
 pom_xml = """<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -66,6 +68,25 @@ pom_xml = """<project xmlns="http://maven.apache.org/POM/4.0.0"
 
 """
 
+themes_descriptor_xml = """<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>themes</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>src/main/themes</directory>
+            <excludes>
+                <exclude>theme.xml</exclude>
+            </excludes>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
+
+"""
 
 def __verify_source_directory_and_create_destination_directory(old_theme_dir, new_theme_dir):
     if not os.path.isdir(old_theme_dir):
@@ -120,6 +141,30 @@ def __obtain_project_specific_data_from_main_pom_and_create_theme_pom(mvn_dir, n
    
     f.write(tmpl.substitute(GROUP_ID = group_id, ARTIFACT_ID = artifact_id, VERSION = version))
 
+def __create_assembly_directory_and_file(new_theme_dir):
+    assembly_directory = new_theme_dir + '/src/main/assembly/'
+    print colored('Creating ' + assembly_directory, 'yellow')
+    os.makedirs(assembly_directory)
+
+    themes_descriptor_file = "themes-descriptor.xml"
+    print colored('Creating ' + themes_descriptor_file + ' in ' + assembly_directory, 'yellow')
+    f = open(assembly_directory + themes_descriptor_file, 'w')
+    f.write(themes_descriptor_xml);
+
+def __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir):
+
+    src_main_dir = new_theme_dir + '/src/main/'
+
+    cmd = 'svn add ' + new_theme_dir
+    print colored(cmd, 'yellow')
+    #subprocess.call(cmd.split())
+    time.sleep(2)
+
+    cmd = 'svn mv ' + src_main_dir + ' ' + old_theme_dir + '/'
+    print colored(cmd, 'yellow')
+    #subprocess.call(cmd.split())
+
+
 
 def run():
     
@@ -127,11 +172,14 @@ def run():
 
     old_theme_dir = mvn_dir + "/web/src/main/themes"
     new_theme_dir = mvn_dir + "/themes"
-    
+
     __verify_source_directory_and_create_destination_directory(old_theme_dir, new_theme_dir)
 
     __obtain_project_specific_data_from_main_pom_and_create_theme_pom(mvn_dir, new_theme_dir)
 
+    __create_assembly_directory_and_file(new_theme_dir)
+
+    __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir)
 
 
 
