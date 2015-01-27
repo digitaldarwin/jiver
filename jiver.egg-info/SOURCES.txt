@@ -6,6 +6,7 @@ extra/jiver-completion.sh
 extra/upgrade-analyzer.jar
 jiver/__init__.py
 jiver/build_and_run.py
+jiver/core_checkout.py
 jiver/database.py
 jiver/diffmerge.py
 jiver/main.py
