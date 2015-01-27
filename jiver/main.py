@@ -2,8 +2,8 @@
 """
 Usage: 
      jiver build-and-run [--skip-tests] <maven-module>...
-     jiver core-checkout <version>
-     jiver core-checkout-url <url>
+     jiver core-checkout [--depth-1] <version>
+     jiver core-checkout-url [--depth-1] <url>
      jiver create (project | plugin)
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
@@ -46,11 +46,13 @@ def start():
 
     if arguments.get('core-checkout', None):
         version = arguments['<version>']
-        core_checkout.run(version)
+        depth_1 = arguments['--depth-1']
+        core_checkout.run(version, depth_1)
 
     elif arguments.get('core-checkout-url', None):
         url = arguments['<url>']
-        core_checkout.url(url)
+        depth_1 = arguments['--depth-1']
+        core_checkout.url(url, depth_1)
 
     elif arguments.get('build-and-run', None):
         maven_modules = arguments['<maven-module>']

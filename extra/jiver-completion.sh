@@ -40,11 +40,21 @@ function _mycomplete_()
             values=''
             ;;
         *core-checkout-url*)
-            values=''
+            if [ "${line: -1}" == '-' ]
+            then
+                values='--depth-1'
+            else
+                values=''
+            fi
             ;;
         *core-checkout\ *)
-            local version_numbers=`cat /usr/local/jiver/git-checkout.txt | awk '{print $1}' | sort `
-            values=$version_numbers
+            if [ "${line: -1}" == '-' ]
+            then
+                values='--depth-1'
+            else
+                local version_numbers=`cat /usr/local/jiver/git-checkout.txt | awk '{print $1}' | sort `
+                values=$version_numbers
+            fi
             ;;
         *create*)
             values='project plugin'

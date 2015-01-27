@@ -27,7 +27,7 @@ def __get_url_for_version(version):
     print colored("Please see https://brewspace.jiveland.com/docs/DOC-61409 for more information.", 'red')
     sys.exit(1)
 
-def __parse_url_and_do_clone(url, version):
+def __parse_url_and_do_clone(url, version, depth_1):
     repo = None
     project = None
     branch = None
@@ -48,7 +48,14 @@ def __parse_url_and_do_clone(url, version):
     #print branch
 
     user_code_dir = os.path.expanduser("~/code/")
-    cmd = "git clone -b " + branch + " --single-branch git@" + repo + ":" + project + " --depth 1 " + user_code_dir + version
+    if version is None:
+        version = branch
+
+    cmd = "git clone -b " + branch + " --single-branch git@" + repo + ":" + project + " " + user_code_dir + version
+
+    if depth_1:
+        cmd = "git clone -b " + branch + " --single-branch git@" + repo + ":" + project + " --depth 1 " + user_code_dir + version
+
     print colored(cmd, 'yellow')
     try:
         subprocess.call(cmd.split())
@@ -59,15 +66,15 @@ def __parse_url_and_do_clone(url, version):
 
 
 
-def run(version):
+def run(version, depth_1):
     #print "version: " + version
     url = __get_url_for_version(version)
     print colored("Found URL: " + url, 'yellow')
 
-    __parse_url_and_do_clone(url, version)
+    __parse_url_and_do_clone(url, version, depth_1)
 
-def url(url):
-    __parse_url_and_do_clone(url, version)
+def url(url, depth_1):
+    __parse_url_and_do_clone(url, None, depth_1)
 
 
 
