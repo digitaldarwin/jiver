@@ -20,7 +20,7 @@ Options:
     -v --version  Show version.
 
 Documentation:
-     jiver build-and-run
+     \033[1mjiver build-and-run\033[0m
             Command gives you the ability to run maven builds for multiple plugins/modules for a Jive project in sequence and then run the
             cargo-start script. This command can run in any subdirectory of a Jive project.
 
@@ -30,7 +30,7 @@ Documentation:
                 This will run 'mvn clean package -DskipTest=true' for retention, then user-syc, and finally web. Once successfully built,
                 the cargo-start script will run.
 
-     jiver core-checkout
+     \033[1mjiver core-checkout\033[0m
             Command will checkout a version of core code. This command works with tab completion for the Jive version numbers. The version
             numbers can be found in /usr/local/jiver/git-checkout.txt. This config file was generated from
             https://brewspace.jiveland.com/docs/DOC-61409.
@@ -41,34 +41,35 @@ Documentation:
                 This will clone the code for 7.0.0.2 in ~/code. It will only obtain one log message. This helps to minimize the size of the
                 checkout.
 
-     jiver core-checkout-url
+     \033[1mjiver core-checkout-url\033[0m
             Similar to 'jiver core-checkout', but for a URL. You can use the urls from https://brewspace.jiveland.com/docs/DOC-61409.
 
             Example:
                 jiver core-checkout-url --depth-1 'http://git.jiveland.com/?p=core/application.git;a=shortlog;h=refs/heads/release_7.0.2.x'
 
-     jiver create
+     \033[1mjiver create\033[0m
             Used to create a project or a plugin
-        project
-            Runs 'mvn -U jive:create-project'
-        plugin
-            Runs 'mvn -U jive:create-plugin'
 
-     jiver database
+            \033[1mproject\033[0m
+                Runs 'mvn -U jive:create-project'
+            \033[1mplugin\033[0m
+                Runs 'mvn -U jive:create-plugin'
+
+     \033[1mjiver database\033[0m
             All of these commands must run while in a Jive project directory or subdirectory.
 
-        connect
-            Will automatically connect via psql to the configured jdbc value in JIVE_PROJECT/target/jiveHome/jive_startup.xml
-        backup
-            Will back up the databases (main, eae, analytics) for the current Jive project with a timestamp to ~/code/DB-BACKUPS. This
-            requires the user to conform to database names like the following:
-                mcgrawhill
-                mcgrawhill-eae
-                mcgrawhill-analytics
-        restore-latest
-            Restores the most recent backup in ~/code/DB-BACKUPS for the current Jive project.
+            \033[1mconnect\033[0m
+                Will automatically connect via psql to the configured jdbc value in JIVE_PROJECT/target/jiveHome/jive_startup.xml
+            \033[1mbackup\033[0m
+                Will back up the databases (main, eae, analytics) for the current Jive project with a timestamp to ~/code/DB-BACKUPS. This
+                requires the user to conform to database names like the following:
+                    mcgrawhill
+                    mcgrawhill-eae
+                    mcgrawhill-analytics
+            \033[1mrestore-latest\033[0m
+                Restores the most recent backup in ~/code/DB-BACKUPS for the current Jive project.
 
-     jiver diffmerge
+     \033[1mjiver diffmerge\033[0m
             Given two or three directories, this will look for the given filename. This searches all the directories for the filename and
             opens them in diffmerge.sh.
 
@@ -88,9 +89,9 @@ Documentation:
                 Notice the filename has 'global/' added to it.
 
 
-     jiver move-theme-to-top-level
+     \033[1mjiver move-theme-to-top-level\033[0m
 
-     jiver overlay
+     \033[1mjiver overlay\033[0m
             Give ths user the ability to overlay a file per the rules defined on https://brewspace.jiveland.com/docs/DOC-74315. You must be
             in a Jive project to run this command.
 
@@ -109,22 +110,23 @@ Documentation:
                     an exclamation in the string. This will be interpreted by bash/zsh.
 
 
-     jiver run-tabs
+     \033[1mjiver run-tabs\033[0m
             Please see https://brewspace.jiveland.com/people/mike.masters/blog/2013/11/21/automated-tabs-and-services
 
-     jiver upgrade-analyzer
+     \033[1mjiver upgrade-analyzer\033[0m
             Please see https://brewspace.jiveland.com/community/ps/ps_engineering/blog/2014/10/17/upgrade-analyzer for additional info. This
             command will start up the upgrade analyzer installed with the 'jiver' command. The upgrade analyzer is available in
             /usr/local/jiver.
 
-     jiver vpn
+     \033[1mjiver vpn\033[0m
             Please see https://brewspace.jiveland.com/docs/DOC-167753 for more info. This command automates the steps from that doc.
-        all
-            Saves the current gateway value and sends all traffic through the VPN.
-        split
-            Uses the previously saved gateway value and splits the VPN traffic.
-        my-current-gateway
-            Displays the current gateway value.
+
+            \033[1mall\033[0m
+                Saves the current gateway value and sends all traffic through the VPN.
+            \033[1msplit\033[0m
+                Uses the previously saved gateway value and splits the VPN traffic.
+            \033[1mmy-current-gateway\033[0m
+                Displays the current gateway value.
 
 """
 
