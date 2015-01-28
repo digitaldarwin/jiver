@@ -15,6 +15,7 @@ def __get_url_for_version(version):
         sys.exit(1)
 
     infile = open(filename, "r")
+    version = version.strip() + " "
 
     for line in infile:
         line = line.strip()
