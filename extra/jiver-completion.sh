@@ -87,7 +87,7 @@ function _mycomplete_()
             values='all split my-current-gateway'
             ;;
         *)
-            values='build-and-run core-checkout core-checkout-url create database diffmerge overlay run-tabs upgrade-analyzer vpn'
+            values='build-and-run core-checkout core-checkout-url create database diffmerge move-theme-to-top-level  overlay run-tabs upgrade-analyzer vpn'
     esac
 
 
