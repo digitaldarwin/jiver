@@ -8,7 +8,6 @@ Usage:
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
      jiver diffmerge <directory-1> <directory-2> <directory-3> <file>
-     jiver move-theme-to-top-level
      jiver overlay <file>
      jiver run-tabs
      jiver upgrade-analyzer
@@ -88,8 +87,6 @@ Documentation:
 
                 Notice the filename has 'global/' added to it.
 
-
-     \033[1mjiver move-theme-to-top-level\033[0m
 
      \033[1mjiver overlay\033[0m
             Give ths user the ability to overlay a file per the rules defined on https://brewspace.jiveland.com/docs/DOC-74315. You must be
