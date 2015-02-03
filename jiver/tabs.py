@@ -2,6 +2,7 @@
 
 import os
 import sys
+import stat
 from termcolor import colored
 
 CWD = os.getcwd()
@@ -146,6 +147,12 @@ def exit_invalid_directory():
     print colored("Must be at the root of a Jive project", 'red')
     sys.exit(1)
 
+def make_scripts_executable_if_needed(scripts):
+    for script in scripts:
+        if os.path.isfile(script) and not os.access(script, os.X_OK):
+            st = os.stat(script)
+            os.chmod(script, st.st_mode | stat.S_IEXEC)
+
 
 def verify_correct_directory_and_run_jive_version():
     term = os.environ['TERM_PROGRAM']
@@ -153,11 +160,15 @@ def verify_correct_directory_and_run_jive_version():
 
     if os.path.isdir("web"):
         if os.path.isdir("run-services"):
+            scripts = ['./run-services/eae-start', './run-services/search-start', './web/cargo-start']
+            make_scripts_executable_if_needed(scripts)
             if term == "Apple_Terminal":
                 os.system(terminal_run_v6_cmd)
             else:
                 os.system(iterm_run_v6_cmd)
         else:
+            scripts = ['./web/eae-start', './web/cargo-start']
+            make_scripts_executable_if_needed(scripts)
             if term == "Apple_Terminal":
                 os.system(terminal_run_v5_cmd)
             else:
