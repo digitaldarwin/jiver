@@ -56,7 +56,8 @@ Documentation:
                 Runs 'mvn -U jive:create-plugin'
 
      \033[1mjiver database\033[0m
-            All of these commands must run while in a Jive project directory or subdirectory.
+            All of these commands must run while in a Jive project directory or subdirectory. The command defaults to using the 'postgres'
+            user. You can change this by using the environment variable JIVER_PG_USER. For example, 'export JIVER_PG_USER=testuser'.
 
             \033[1mconnect\033[0m
                 Will automatically connect via psql to the configured jdbc value in JIVE_PROJECT/target/jiveHome/jive_startup.xml
