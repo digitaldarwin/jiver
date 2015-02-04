@@ -8,7 +8,7 @@ Usage:
      jiver database (connect | backup | restore-latest)
      jiver diffmerge <directory-1> <directory-2> <file>
      jiver diffmerge <directory-1> <directory-2> <directory-3> <file>
-     jiver move-theme-to-top-level
+     jiver move-theme-to-top-level <JIRA-ticket>
      jiver overlay <file>
      jiver run-tabs
      jiver upgrade-analyzer
@@ -90,6 +90,7 @@ Documentation:
 
 
      \033[1mjiver move-theme-to-top-level\033[0m
+            Will move the theme(s) from the 'web' directory to at top level maven module. <JIRA-ticket> will be used for subversion commits during this process. It's recommended to use a Jira ticket specifically for this task.
 
      \033[1mjiver overlay\033[0m
             Give ths user the ability to overlay a file per the rules defined on https://brewspace.jiveland.com/docs/DOC-74315. You must be
@@ -207,7 +208,8 @@ def start():
             database.restore_latest()
 
     elif arguments.get('move-theme-to-top-level', None):
-        move_theme_to_top_level.run()
+        jira_ticket = arguments['<JIRA-ticket>']
+        move_theme_to_top_level.run(jira_ticket)
 
     elif arguments.get('diffmerge', None):
         d1 = arguments['<directory-1>']

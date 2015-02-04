@@ -9,6 +9,7 @@ import string
 import xml.etree.ElementTree as ET
 import subprocess
 import time
+import re
 
 pom_xml = """<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -113,6 +114,7 @@ def __print_out_node_information(root):
 
 def __obtain_project_specific_data_from_main_pom_and_create_theme_pom(mvn_dir, new_theme_dir):
 
+    print colored('Extracting info from root pom.xml file.', 'yellow')
     pom_file = mvn_dir + '/pom.xml'
     #print pom_file
     
@@ -135,6 +137,9 @@ def __obtain_project_specific_data_from_main_pom_and_create_theme_pom(mvn_dir, n
     print "groupId: " + group_id
     print "artifactId: " + artifact_id
     print "version: " + version
+    if len(group_id.strip()) == 0 or len(artifact_id.strip()) == 0 or len(version.strip()) == 0:
+        print colored("Wasn't able to find all required info", 'red')
+        sys.exit(1)
 
     f = open(new_theme_dir + "/pom.xml", 'w')
     tmpl = string.Template(pom_xml)
@@ -151,7 +156,9 @@ def __create_assembly_directory_and_file(new_theme_dir):
     f = open(assembly_directory + themes_descriptor_file, 'w')
     f.write(themes_descriptor_xml);
 
-def __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir):
+def __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir, jira_ticket):
+
+    print colored("You need to run the following commands manually.", 'red')
 
     src_main_dir = new_theme_dir + '/src/main/'
 
@@ -160,13 +167,26 @@ def __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir):
     #subprocess.call(cmd.split())
     time.sleep(2)
 
-    cmd = 'svn mv ' + src_main_dir + ' ' + old_theme_dir + '/'
+    cmd = 'svn mv ' + old_theme_dir + '/ ' + src_main_dir
     print colored(cmd, 'yellow')
     #subprocess.call(cmd.split())
 
+    cmd = 'svn commit -m "' + jira_ticket + ' Moving theme(s) to top level"'
+    print colored(cmd, 'yellow')
+    #subprocess.call(cmd.split())
+
+def __verify_format_for_jira_ticket(jira_ticket):
+    if re.match(r'^[a-zA-Z]+-\d+', jira_ticket):
+        return
+    else:
+        print colored("JIRA ticket is not an expected format: " + jira_ticket, 'red')
+        sys.exit(1)
 
 
-def run():
+
+def run(jira_ticket):
+
+    __verify_format_for_jira_ticket(jira_ticket)
     
     mvn_dir = maven_utils.find_root_maven_dir_from_current_dir()
 
@@ -179,7 +199,7 @@ def run():
 
     __create_assembly_directory_and_file(new_theme_dir)
 
-    __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir)
+    __svn_move_for_themes_from_web_directory(old_theme_dir, new_theme_dir, jira_ticket)
 
 
 
